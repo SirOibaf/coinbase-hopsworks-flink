@@ -15,6 +15,8 @@
         <hsfs.version>3.3.0-SNAPSHOT</hsfs.version>
         <asynchttp.version>2.12.3</asynchttp.version>
         <junit.version>4.13.2</junit.version>
+        <avro.version>1.10.0</avro.version>
+        <flink.version>1.14.3</flink.version>
     </properties>
 
     <dependencies>
@@ -28,32 +30,32 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_2.11</artifactId>
-            <version>1.14.3</version>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-files</artifactId>
-            <version>1.14.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.14.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka_2.11</artifactId>
-            <version>1.14.3</version>
+            <artifactId>flink-avro</artifactId>
+            <version>${flink.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.flink</groupId>
                     <artifactId>flink-shaded-hadoop2</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+            <version>${avro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.14.2</version>
         </dependency>
 
         <dependency>
@@ -139,6 +141,22 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>${avro.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                            <goal>protocol</goal>
+                            <goal>idl-protocol</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

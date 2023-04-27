@@ -59,6 +59,21 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.avro</groupId>
+        <artifactId>avro-maven-plugin</artifactId>
+        <version>${avro.version}</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>schema</goal>
+              <goal>protocol</goal>
+              <goal>idl-protocol</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -76,6 +91,8 @@
     </dependency>
   </dependencies>
   <properties>
+    <avro.version>1.10.0</avro.version>
+    <flink.version>1.14.3</flink.version>
     <hsfs.version>3.3.0-SNAPSHOT</hsfs.version>
     <asynchttp.version>2.12.3</asynchttp.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

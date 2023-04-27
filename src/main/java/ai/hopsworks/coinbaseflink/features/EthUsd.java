@@ -4,6 +4,7 @@ import ai.hopsworks.coinbaseflink.utils.WSReader;
 import com.logicalclocks.hsfs.flink.FeatureStore;
 import com.logicalclocks.hsfs.flink.HopsworksConnection;
 import com.logicalclocks.hsfs.flink.StreamFeatureGroup;
+import com.twitter.chill.java.UnmodifiableCollectionSerializer;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.api.common.serialization.SimpleStringEncoder;
 import org.apache.flink.core.fs.Path;
@@ -33,11 +34,15 @@ public class EthUsd {
         "wJP4J8zVO76abcZs.6SETE5tTgqGsTogRLxKPtfLLU37pn3G5zcqj0HQjDDMrwDfOqe6OK0BQg37aMolV"
     );
     FeatureStore featureStore = hopsworksConnection.getFeatureStore();
-    streamFeatureGroup = featureStore.getStreamFeatureGroup("ticker", 1);
+    streamFeatureGroup = featureStore.getStreamFeatureGroup("ticker", 2);
   }
 
   public void stream() throws Exception {
-    final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+    StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+    env.getConfig().enableObjectReuse();
+    Class<?> unmodColl = Class.forName("java.util.Collections$UnmodifiableCollection");
+    env.getConfig().addDefaultKryoSerializer(unmodColl, UnmodifiableCollectionSerializer.class);
+
 
     env.setParallelism(1);
 

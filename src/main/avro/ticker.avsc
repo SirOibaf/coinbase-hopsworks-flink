@@ -1,0 +1,28 @@
+{
+  "type" : "record",
+  "name" : "Ticker",
+  "namespace" : "ai.hopsworks.coinbaseflink.features",
+  "fields": [
+    {
+      "name": "ticker",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "timestamp",
+      "type": [
+        "null",
+        "long"
+      ]
+    },
+    {
+      "name": "price",
+      "type": [
+        "null",
+        "float"
+      ]
+    }
+  ]
+}

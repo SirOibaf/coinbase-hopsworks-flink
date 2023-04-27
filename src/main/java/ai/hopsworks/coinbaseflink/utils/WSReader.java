@@ -78,10 +78,8 @@ public class WSReader extends RichSourceFunction<Ticker> {
                 return;
               }
 
-              Instant instant = Instant.parse((String) responseMap.get("time"));
-
               Ticker ticker = new Ticker("eth-usd",
-                  Timestamp.from(instant),
+                  Instant.parse((String) responseMap.get("time")).toEpochMilli(),
                   Float.valueOf((String) responseMap.get("price")));
 
               try {
