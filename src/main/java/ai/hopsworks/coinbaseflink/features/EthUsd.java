@@ -1,5 +1,6 @@
 package ai.hopsworks.coinbaseflink.features;
 
+import ai.hopsworks.coinbaseflink.utils.ConfigKeys;
 import ai.hopsworks.coinbaseflink.utils.WSReader;
 import com.logicalclocks.hsfs.flink.FeatureStore;
 import com.logicalclocks.hsfs.flink.HopsworksConnection;
@@ -12,6 +13,8 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink;
 
+import java.util.Map;
+
 public class EthUsd {
 
   public static final int CHECKPOINTING_INTERVAL_MS = 5000;
@@ -19,15 +22,18 @@ public class EthUsd {
 
   private StreamFeatureGroup streamFeatureGroup;
 
-  public EthUsd() throws Exception {
+  public EthUsd(Map<String, String> configuration) throws Exception {
     HopsworksConnection hopsworksConnection = HopsworksConnection.builder()
-        .host("ef3beed0-e437-11ed-9473-fd53c07a424c.cloud.hopsworks.ai")
-        .project("mischievous")
-        .apiKeyValue("wJP4J8zVO76abcZs.6SETE5tTgqGsTogRLxKPtfLLU37pn3G5zcqj0HQjDDMrwDfOqe6OK0BQg37aMolV")
+        .host(configuration.get(ConfigKeys.HOST))
+        .project(configuration.get(ConfigKeys.PROJECT))
+        .apiKeyValue(configuration.get(ConfigKeys.API_KEY_VALUE))
         .build();
 
     FeatureStore featureStore = hopsworksConnection.getFeatureStore();
-    streamFeatureGroup = featureStore.getStreamFeatureGroup("ticker", 2);
+    streamFeatureGroup = featureStore.getStreamFeatureGroup(
+        configuration.get(ConfigKeys.FEATURE_GROUP_NAME),
+        Integer.valueOf(configuration.get(ConfigKeys.FEATURE_GROUP_VERSION))
+    );
   }
 
   public void stream() throws Exception {
