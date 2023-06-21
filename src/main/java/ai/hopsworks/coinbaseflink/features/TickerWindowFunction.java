@@ -1,13 +1,11 @@
 package ai.hopsworks.coinbaseflink.features;
 
-import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.streaming.api.functions.windowing.ProcessWindowFunction;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
 public class TickerWindowFunction extends
   ProcessWindowFunction<Price5Minutes, Price5Minutes, String,  TimeWindow> {
-  
   
   @Override
   public void process(String key, Context context,
