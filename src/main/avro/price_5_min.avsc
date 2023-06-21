@@ -1,0 +1,45 @@
+{
+  "type": "record",
+  "name": "Price5Minutes",
+  "namespace" : "ai.hopsworks.coinbaseflink.features",
+  "fields": [
+    {
+      "name": "ticker",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "timestamp",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "timestamp-micros"
+        }
+      ]
+    },
+    {
+      "name": "price_avg",
+      "type": [
+        "null",
+        "float"
+      ]
+    },
+    {
+      "name": "price_max",
+      "type": [
+        "null",
+        "float"
+      ]
+    },
+    {
+      "name": "price_min",
+      "type": [
+        "null",
+        "float"
+      ]
+    }
+  ]
+}
