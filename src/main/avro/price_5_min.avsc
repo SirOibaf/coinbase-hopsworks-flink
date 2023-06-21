@@ -40,6 +40,20 @@
         "null",
         "float"
       ]
+    },
+    {
+      "name": "window_start",
+      "type": [
+        "null",
+        "long"
+      ]
+    },
+    {
+      "name": "window_end",
+      "type": [
+        "null",
+        "long"
+      ]
     }
   ]
 }

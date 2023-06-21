@@ -40,7 +40,9 @@ public class PriceAccumulators implements AggregateFunction<Ticker, Tuple5<Strin
         Instant.now(),
         tuple.f2 / tuple.f1,
         tuple.f3,
-        tuple.f4
+        tuple.f4,
+      null,
+      null
     );
   }
 

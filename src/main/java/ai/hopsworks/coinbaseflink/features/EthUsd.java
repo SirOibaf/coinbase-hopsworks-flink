@@ -41,7 +41,7 @@ public class EthUsd {
     DataStream<Price5Minutes> websocketStream = env.addSource(new WSReader())
         .keyBy(Ticker::getTicker)
         .window(SlidingEventTimeWindows.of(Time.minutes(5), Time.minutes(1)))
-        .aggregate(new PriceAccumulators());
+        .aggregate(new PriceAccumulators(), new TickerWindowFunction());
 
     streamFeatureGroup.insertStream(websocketStream);
 
