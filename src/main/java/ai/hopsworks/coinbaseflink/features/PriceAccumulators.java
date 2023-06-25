@@ -37,7 +37,7 @@ public class PriceAccumulators implements AggregateFunction<Ticker, Tuple5<Strin
   public Price5Minutes getResult(Tuple5<String, Long, Float, Float, Float> tuple) {
     return new Price5Minutes(
         tuple.f0,
-        Instant.now(),
+        Instant.now().toEpochMilli(),
         tuple.f2 / tuple.f1,
         tuple.f3,
         tuple.f4

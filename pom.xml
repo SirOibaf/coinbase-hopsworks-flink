@@ -15,7 +15,7 @@
         <hsfs.version>3.3.0-SNAPSHOT</hsfs.version>
         <asynchttp.version>2.12.3</asynchttp.version>
         <junit.version>4.13.2</junit.version>
-        <avro.version>1.10.0</avro.version>
+        <avro.version>1.8.2</avro.version>
         <flink.version>1.14.3</flink.version>
     </properties>
 
@@ -32,18 +32,6 @@
             <artifactId>flink-streaming-java_2.11</artifactId>
             <version>${flink.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka_2.11</artifactId>
-            <version>${flink.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.flink</groupId>
-                    <artifactId>flink-shaded-hadoop2</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -78,7 +66,7 @@
 
         <dependency>
             <groupId>org.asynchttpclient</groupId>
-            <artifactId>async-http-client</artifactId>
+            <artifactId>async-http-client-project</artifactId>
             <version>${asynchttp.version}</version>
         </dependency>
 

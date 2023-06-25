@@ -27,7 +27,7 @@ public class EthUsd {
     HopsworksConnection hopsworksConnection = HopsworksConnection.builder()
         .host("41074450-096b-11ee-96ca-a76595e0c7d6.cloud.hopsworks.ai")
         .project("eth_flink")
-        .apiKeyValue("N7N7p0c5cB1zlC11.WylW9I6ZOUS77tcgSw1iSUwTHTJAaa5kWl0yhY5HqmUEuvwqECd7APM4ksbPanjP")
+        .apiKeyValue("QJYQctfVQph3C4Vv.PczprNXHdfWMhJHidnVEq84aVg1wNHG4fkTx9mrERusMZfMSFoqiihkfPZx9UuDw")
         .build();
 
     FeatureStore featureStore = hopsworksConnection.getFeatureStore();
