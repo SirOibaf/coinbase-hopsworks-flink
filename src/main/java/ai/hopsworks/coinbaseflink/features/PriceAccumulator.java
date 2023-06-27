@@ -4,7 +4,7 @@ import ai.hopsworks.coinbaseflink.utils.Ticker;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.java.tuple.Tuple5;
 
-public class PriceAccumulators implements AggregateFunction<Ticker, Tuple5<String, Long, Float, Float, Float>, Price5Minutes> {
+public class PriceAccumulator implements AggregateFunction<Ticker, Tuple5<String, Long, Float, Float, Float>, Price5Minutes> {
 
   /*
    * Tuple composition is the following:

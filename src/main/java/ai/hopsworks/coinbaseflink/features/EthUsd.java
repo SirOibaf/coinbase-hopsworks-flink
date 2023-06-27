@@ -2,7 +2,6 @@ package ai.hopsworks.coinbaseflink.features;
 
 import ai.hopsworks.coinbaseflink.utils.Ticker;
 import ai.hopsworks.coinbaseflink.utils.WSReader;
-import com.logicalclocks.hsfs.FeatureStoreException;
 import com.logicalclocks.hsfs.flink.FeatureStore;
 import com.logicalclocks.hsfs.flink.HopsworksConnection;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -13,7 +12,6 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 
-import java.io.IOException;
 import java.time.Duration;
 
 public class EthUsd {
@@ -64,7 +62,7 @@ public class EthUsd {
         .assignTimestampsAndWatermarks(customWatermark)
         .keyBy(Ticker::getTicker)
         .window(SlidingEventTimeWindows.of(Time.minutes(windowSizeMinutes), Time.minutes(slideSizeMinutes)))
-        .aggregate(new PriceAccumulators(), new PriceWindow());
+        .aggregate(new PriceAccumulator(), new PriceWindow());
 
     featureStore.getStreamFeatureGroup(featureGroupName, featureGroupVersion).insertStream(websocketStream);
   }
