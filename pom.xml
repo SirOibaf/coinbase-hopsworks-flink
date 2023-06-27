@@ -15,7 +15,7 @@
         <hsfs.version>3.3.0-SNAPSHOT</hsfs.version>
         <asynchttp.version>2.12.3</asynchttp.version>
         <junit.version>4.13.2</junit.version>
-        <avro.version>1.10.0</avro.version>
+        <avro.version>1.8.2</avro.version>
         <flink.version>1.14.3</flink.version>
     </properties>
 

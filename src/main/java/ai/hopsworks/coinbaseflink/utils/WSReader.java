@@ -1,6 +1,5 @@
 package ai.hopsworks.coinbaseflink.utils;
 
-import ai.hopsworks.coinbaseflink.features.Ticker;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.annotation.VisibleForTesting;
 import org.apache.flink.configuration.Configuration;
@@ -16,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -79,7 +77,7 @@ public class WSReader extends RichSourceFunction<Ticker> {
               }
 
               Ticker ticker = new Ticker("eth-usd",
-                  Instant.parse((String) responseMap.get("time")).toEpochMilli(),
+                  Instant.parse((String) responseMap.get("time")),
                   Float.valueOf((String) responseMap.get("price")));
 
               try {
