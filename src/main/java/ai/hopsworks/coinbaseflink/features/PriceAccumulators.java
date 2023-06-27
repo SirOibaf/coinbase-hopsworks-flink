@@ -4,8 +4,6 @@ import ai.hopsworks.coinbaseflink.utils.Ticker;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.java.tuple.Tuple5;
 
-import java.time.Instant;
-
 public class PriceAccumulators implements AggregateFunction<Ticker, Tuple5<String, Long, Float, Float, Float>, Price5Minutes> {
 
   /*
@@ -37,7 +35,7 @@ public class PriceAccumulators implements AggregateFunction<Ticker, Tuple5<Strin
   public Price5Minutes getResult(Tuple5<String, Long, Float, Float, Float> tuple) {
     return new Price5Minutes(
         tuple.f0,
-        Instant.now().toEpochMilli(),
+        0L, // the timestamp will be set by the PriceWindow method
         tuple.f2 / tuple.f1,
         tuple.f3,
         tuple.f4
