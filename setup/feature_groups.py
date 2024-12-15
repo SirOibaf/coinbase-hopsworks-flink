@@ -1,9 +1,9 @@
-# Setup the feature groups for the Flink pipelines
-import hsfs
+import hopsworks
 from hsfs.feature import Feature
 
-connection = hsfs.connection()
-fs = connection.get_feature_store()
+project = hopsworks.login()
+
+fs = project.get_feature_store()
 
 # Window aggregations
 price_window_minutes = [5, 10, 60]

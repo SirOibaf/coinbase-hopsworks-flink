@@ -12,11 +12,11 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hsfs.version>3.3.0-SNAPSHOT</hsfs.version>
+        <hsfs.version>4.2.0-SNAPSHOT</hsfs.version>
         <asynchttp.version>2.12.3</asynchttp.version>
         <junit.version>4.13.2</junit.version>
         <avro.version>1.8.2</avro.version>
-        <flink.version>1.14.3</flink.version>
+        <flink.version>1.17.0</flink.version>
     </properties>
 
     <dependencies>
@@ -29,9 +29,15 @@
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-java_2.11</artifactId>
+            <artifactId>flink-streaming-java</artifactId>
             <version>${flink.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka</artifactId>
+            <version>${flink.version}</version>
         </dependency>
 
         <dependency>

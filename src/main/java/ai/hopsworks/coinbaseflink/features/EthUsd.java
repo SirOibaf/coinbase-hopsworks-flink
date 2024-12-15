@@ -23,10 +23,10 @@ public class EthUsd {
 
   public EthUsd() throws Exception {
     HopsworksConnection hopsworksConnection = HopsworksConnection.builder()
-        .host("hopsworks.glassfish.service.consul")
-        .port(8181)
-        .project("eth_flink")
-        .apiKeyValue("QJYQctfVQph3C4Vv.PczprNXHdfWMhJHidnVEq84aVg1wNHG4fkTx9mrERusMZfMSFoqiihkfPZx9UuDw")
+        .host()
+        .port()
+        .project()
+        .apiKeyValue()
         .build();
 
     featureStore = hopsworksConnection.getFeatureStore();
@@ -58,12 +58,14 @@ public class EthUsd {
         .<Ticker>forBoundedOutOfOrderness(Duration.ofSeconds(30))
         .withTimestampAssigner((event, timestamp) -> event.getTimestamp().toEpochMilli());
 
-    DataStream<Price5Minutes> websocketStream = websocketSource
+    DataStream<PriceAgg> websocketStream = websocketSource
         .assignTimestampsAndWatermarks(customWatermark)
         .keyBy(Ticker::getTicker)
         .window(SlidingEventTimeWindows.of(Time.minutes(windowSizeMinutes), Time.minutes(slideSizeMinutes)))
         .aggregate(new PriceAccumulator(), new PriceWindow());
 
-    featureStore.getStreamFeatureGroup(featureGroupName, featureGroupVersion).insertStream(websocketStream);
+    featureStore
+        .getStreamFeatureGroup(featureGroupName, featureGroupVersion)
+        .insertStream(websocketStream);
   }
 }

@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "Price5Minutes",
+  "name": "PriceAgg",
   "namespace" : "ai.hopsworks.coinbaseflink.features",
   "fields": [
     {
