@@ -39,9 +39,9 @@ public class EthUsd {
     DataStreamSource<Ticker> websocketSource = env.addSource(new WSReader());
 
     // Setup the sliding window aggregations 5, 10, 60 minutes
-    priceSlidingWindow(websocketSource, 5, 1, "eth_usd_price_5_min", 1);
-    priceSlidingWindow(websocketSource, 10, 5, "eth_usd_price_10_min", 1);
-    priceSlidingWindow(websocketSource, 60, 10, "eth_usd_price_60_min", 1);
+    priceSlidingWindow(websocketSource, 5, 1, "eth_usd_price_5_min", 6);
+    priceSlidingWindow(websocketSource, 10, 5, "eth_usd_price_10_min", 6);
+    priceSlidingWindow(websocketSource, 60, 10, "eth_usd_price_60_min", 6);
 
     env.execute(JOB_NAME);
     env.enableCheckpointing(CHECKPOINTING_INTERVAL_MS);
