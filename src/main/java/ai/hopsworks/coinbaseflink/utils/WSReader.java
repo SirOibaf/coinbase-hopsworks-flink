@@ -2,9 +2,10 @@ package ai.hopsworks.coinbaseflink.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.annotation.VisibleForTesting;
+import org.apache.flink.api.common.functions.OpenContext;
 import org.apache.flink.configuration.Configuration;
-import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
-import org.apache.flink.streaming.api.functions.source.SourceFunction;
+import org.apache.flink.streaming.api.functions.source.legacy.RichSourceFunction;
+import org.apache.flink.streaming.api.functions.source.legacy.SourceFunction;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.BoundRequestBuilder;
 import org.asynchttpclient.Dsl;
@@ -33,7 +34,7 @@ public class WSReader extends RichSourceFunction<Ticker> {
   private ObjectMapper objectMapper = new ObjectMapper();
 
   @Override
-  public void run(SourceFunction.SourceContext<Ticker> ctx) throws Exception {
+  public void run(SourceContext<Ticker> ctx) throws Exception {
     WebSocketUpgradeHandler webSocketUpgradeHandler = webSocketListener.addWebSocketListener(
         new WebSocketListener() {
 
@@ -104,9 +105,9 @@ public class WSReader extends RichSourceFunction<Ticker> {
   }
 
   @Override
-  public void open(Configuration parameters) throws Exception {
+  public void open(OpenContext openContext) throws Exception {
     LOGGER.info("Configuring the Websocket");
-    super.open(parameters);
+    super.open(openContext);
     configureClient();
   }
 
