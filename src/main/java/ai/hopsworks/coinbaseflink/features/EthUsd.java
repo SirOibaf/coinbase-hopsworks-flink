@@ -5,12 +5,10 @@ import ai.hopsworks.coinbaseflink.utils.WSReader;
 import com.logicalclocks.hsfs.flink.FeatureStore;
 import com.logicalclocks.hsfs.flink.HopsworksConnection;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
-import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
-import org.apache.flink.streaming.api.windowing.time.Time;
 
 import java.time.Duration;
 
@@ -23,10 +21,10 @@ public class EthUsd {
 
   public EthUsd() throws Exception {
     HopsworksConnection hopsworksConnection = HopsworksConnection.builder()
-        .host()
-        .port()
-        .project()
-        .apiKeyValue()
+        .host("10.87.43.126")
+        .port(443)
+        .project("test")
+        .apiKeyValue("Q4ilDVggoRQyvj3O.sHnWx1SltUELcsO7q6bgbW12RGUaX6FPOFNty8Aj2IP8SDuGEHfOMJPscg99ElUr")
         .build();
 
     featureStore = hopsworksConnection.getFeatureStore();
@@ -45,7 +43,6 @@ public class EthUsd {
 
     env.execute(JOB_NAME);
     env.enableCheckpointing(CHECKPOINTING_INTERVAL_MS);
-    env.setRestartStrategy(RestartStrategies.noRestart());
   }
 
   private void priceSlidingWindow(DataStreamSource<Ticker> websocketSource,
@@ -61,7 +58,7 @@ public class EthUsd {
     DataStream<PriceAgg> websocketStream = websocketSource
         .assignTimestampsAndWatermarks(customWatermark)
         .keyBy(Ticker::getTicker)
-        .window(SlidingEventTimeWindows.of(Time.minutes(windowSizeMinutes), Time.minutes(slideSizeMinutes)))
+        .window(SlidingEventTimeWindows.of(Duration.ofMinutes(windowSizeMinutes), Duration.ofMinutes(slideSizeMinutes)))
         .aggregate(new PriceAccumulator(), new PriceWindow());
 
     featureStore

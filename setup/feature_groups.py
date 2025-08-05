@@ -1,10 +1,19 @@
-import hsfs 
 from hsfs.feature import Feature
 import great_expectations as ge
 
-project = hopsworks.login()
+import hopsworks
 
-fs = connection.get_feature_store()
+
+project = hopsworks.login(
+    host='10.87.43.126',
+    port=443,
+    project='test',
+    engine='python', # spark-no-metastore
+    api_key_value='Q4ilDVggoRQyvj3O.sHnWx1SltUELcsO7q6bgbW12RGUaX6FPOFNty8Aj2IP8SDuGEHfOMJPscg99ElUr',
+    hostname_verification=False,
+)
+
+fs = project.get_feature_store()
 
 # Window aggregations
 price_window_minutes = [5, 10, 60]
